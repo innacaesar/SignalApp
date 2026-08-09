@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SignalApp/SignalApp.csproj" />
+  <Project Path="SignalrMauiApp/SignalrMauiApp.csproj" Id="15a0b01c-9787-4bb6-a35d-1c2013939558" />
+</Solution>

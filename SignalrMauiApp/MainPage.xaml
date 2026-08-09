@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignalrMauiApp.MainPage">
+
+    <StackLayout>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                        HorizontalOptions="Center" />
+        <Grid Padding="5" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" FontSize="18" Text="login" />
+            <Entry Grid.Row="1" x:Name="userNameBox" Text="{Binding UserName}" HorizontalOptions="Fill"/>
+
+            <Label Grid.Row="2" FontSize="Small" Text="massage" />
+            <Entry Grid.Row="3" Text="{Binding Message}" HorizontalOptions="Fill"/>
+
+            <Button Grid.Row="4" Text="send" IsEnabled="{Binding IsConnected}" Command="{Binding SendMessageCommand}"/>
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Messages}" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Padding="5">
+                        <Label Text="{Binding User}" FontAttributes="Bold" />
+                        <Label Text="{Binding Message}" Margin="10,0,0,0" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+
+</ContentPage>
