@@ -10,10 +10,10 @@ namespace SignalrMauiApp
 
         public string UserName { get; set; }
         public string Message { get; set; }
-        // список всех полученных сообщений
+        // רשימת ההודעות
         public ObservableCollection<MessageData> Messages { get; } = new();
 
-        // идет ли отправка сообщений
+        // מחכה לשליחת הודעות
         bool isBusy;
         public bool IsBusy
         {
@@ -27,7 +27,7 @@ namespace SignalrMauiApp
                 }
             }
         }
-        // осуществлено ли подключение
+        // האם מחובר לשרת
         bool isConnected;
         public bool IsConnected
         {
@@ -41,18 +41,18 @@ namespace SignalrMauiApp
                 }
             }
         }
-        // команда отправки сообщений
+        //  שליחת הודעות
         public Command SendMessageCommand { get; }
 
         public ChatViewModel()
         {
-            // создание подключения
+            // יצירת חיבור
             hubConnection = new HubConnectionBuilder()
                 .WithUrl("http://192.168.1.14:5156/chat")
                 .Build();
 
-            IsConnected = false;    // по умолчанию не подключены
-            IsBusy = false;         // отправка сообщения не идет
+            IsConnected = false;    // ברירת מחדל לא מחובר לשרת
+            IsBusy = false;         // שליחת הודעה לא מתבצעת
 
             SendMessageCommand = new Command(async () => await SendMessage(), () => IsConnected);
 
@@ -69,7 +69,7 @@ namespace SignalrMauiApp
                 SendLocalMessage(user, message);
             });
         }
-        // подключение к чату
+        // התחברות לשרת
         public async Task Connect()
         {
             if (IsConnected)
@@ -87,7 +87,7 @@ namespace SignalrMauiApp
             }
         }
 
-        // Отключение от чата
+        // התנתקות מהשרת
         public async Task Disconnect()
         {
             if (!IsConnected) return;
@@ -97,7 +97,7 @@ namespace SignalrMauiApp
             SendLocalMessage(string.Empty, "You have left the chat...");
         }
 
-        // Отправка сообщения
+        // שליחת הודעה
         async Task SendMessage()
         {
             try
@@ -112,7 +112,7 @@ namespace SignalrMauiApp
 
             IsBusy = false;
         }
-        // Добавление сообщения
+        // הוספת הודעה
         private void SendLocalMessage(string user, string message)
         {
             Messages.Insert(0, new MessageData(user, message));

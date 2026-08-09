@@ -22,28 +22,28 @@
             .build();
 
         document.getElementById("sendBtn").addEventListener("click", function () {
-            const userName = document.getElementById("userName").value;   // получаем введенное имя
+            const userName = document.getElementById("userName").value;   // מקבל את שם המשתמש מהשדה המתאים
             const message = document.getElementById("message").value;
 
-            hubConnection.invoke("Send", userName, message) // отправка данных серверу
+            hubConnection.invoke("Send", userName, message) // שולח את שם המשתמש וההודעה לשרת
                 .catch(function (err) {
                     return console.error(err.toString());
                 });
         });
-        // получение данных с сервера
+        // קוד זה מאזין לאירוע "Receive" מהשרת ומוסיף את ההודעה ל-HTML
         hubConnection.on("Receive", function (userName, message) {
 
-            // создаем элемент <b> для имени пользователя
+            // יוצר אלמנט <b> עבור שם המשתמש
             const userNameElem = document.createElement("b");
             userNameElem.textContent = `${userName}: `;
 
-            // создает элемент <p> для сообщения пользователя
+            // יוצר אלמנט <p> עבור ההודעה ומוסיף את שם המשתמש וההודעה לתוכו
             const elem = document.createElement("p");
             elem.appendChild(userNameElem);
             elem.appendChild(document.createTextNode(message));
 
-            // добавляем новый элемент в самое начало
-            // для этого сначала получаем первый элемент
+            // נוסיף את האלמנט החדש בתחילת החדר
+            // לזה, אנו מקבלים את האלמנט הראשון של החדר ומכניסים את ההודעה החדשה לפניו
             const firstElem = document.getElementById("chatroom").firstChild;
             document.getElementById("chatroom").insertBefore(elem, firstElem);
         });
